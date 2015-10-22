@@ -18,7 +18,7 @@
 	
 	// Create download task
 	NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-										  dataTaskWithURL:[NSURL URLWithString:urlStr]
+										  dataTaskWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
 										  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 											  
 											  NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
