@@ -16,9 +16,13 @@
 	// Сreate a queue of the same thread that the method was invoked
 	NSOperationQueue *queue = [NSOperationQueue currentQueue];
 	
+    // Encode URL string
+    
+    urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
 	// Create download task
 	NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-										  dataTaskWithURL:[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+										  dataTaskWithURL:[NSURL URLWithString:urlStr]
 										  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 											  
 											  NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
