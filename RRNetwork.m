@@ -52,30 +52,4 @@
 	
 }
 
-+ (void)downloadImageFromUrlStr:(NSString *)urlStr
-		 withCompletionHandler:(void (^)(UIImage *image, NSError *error))completion {
-	
-	
-	
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *filePath = [documentsPath stringByAppendingPathComponent:[urlStr lastPathComponent]];
-	
-	NSData *pngData = [NSData dataWithContentsOfFile:filePath];
-	UIImage *cachedImage = [UIImage imageWithData:pngData];
-	if (cachedImage) {
-		completion(cachedImage, nil);
-	}
-	[self downloadDataFromUrlStr:urlStr withCompletionHandler:^(NSData *data, NSError *error) {
-		UIImage *downloadedImage = [UIImage imageWithData:data];
-		
-		NSData *pngData = UIImagePNGRepresentation(downloadedImage);
-		[pngData writeToFile:filePath atomically:YES]; //Write the file
-		
-		completion(downloadedImage, error);
-		
-	}];
-	
-}
-
 @end
